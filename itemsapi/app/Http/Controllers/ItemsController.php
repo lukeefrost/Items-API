@@ -36,7 +36,22 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+          'text' => 'required',
+          'body' => 'required',
+        ]);
+
+        if ($validator->fails())
+        {
+            return ['response' => $validator->messages(), 'success' => false];
+        }
+
+        $item = new Item();
+        $item->text = $request->input('text');
+        $item->body = $request->input('body');
+        $item->save();
+
+        return response()->json($item);
     }
 
     /**
