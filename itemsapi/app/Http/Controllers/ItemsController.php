@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use Validator;
 
 class ItemsController extends Controller
 {
@@ -102,7 +103,7 @@ class ItemsController extends Controller
     public function destroy($id)
     {
         $item = Item::find($id);
-        $item->destroy();
+        $item->delete();
 
         return ['response' => 'Item Deleted', 'success' => true];
     }
